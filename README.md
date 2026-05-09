@@ -252,6 +252,5 @@ Feel free to star the repository and connect with me on LinkedIn.
 
 # 📬 Connect
 
-LinkedIn: *Add your LinkedIn URL here*
+LinkedIn: www.linkedin.com/in/vaibhav-kumar-ops
 
-GitHub: *Add your GitHub URL here*
