@@ -167,15 +167,18 @@ http://<EC2-PUBLIC-IP>:8080
 
 ## Kestra Dashboard
 
-*Add screenshot here*
+<img width="1913" height="900" alt="image" src="https://github.com/user-attachments/assets/afd3d6bb-612e-43ec-9643-c9a5a141c281" />
+
 
 ## Workflow Execution
 
-*Add screenshot here*
+<img width="1372" height="652" alt="vue-flow-screenshot-1778327400663" src="https://github.com/user-attachments/assets/1977c07a-f2a5-4dbc-a13e-08e88ee1e08e" />
+
 
 ## Logs & Monitoring
 
-*Add screenshot here*
+<img width="1912" height="916" alt="image" src="https://github.com/user-attachments/assets/2ae4bf8d-6bd1-4e7c-9193-96917b643902" />
+
 
 ---
 
