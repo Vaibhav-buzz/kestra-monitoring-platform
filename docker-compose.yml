@@ -1,0 +1,72 @@
+
+
+services:
+
+  postgres:
+    image: postgres:15
+
+    container_name: kestra_postgres
+
+    environment:
+      POSTGRES_DB: kestra
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: kestra
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kestra"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kestra:
+    image: kestra/kestra:v0.22.43
+
+    container_name: kestra
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    user: "root"
+
+    command: server standalone
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+
+      KESTRA_CONFIGURATION: |
+        datasources:
+          postgres:
+            url: jdbc:postgresql://postgres:5432/kestra
+            driverClassName: org.postgresql.Driver
+            username: kestra
+            password: kestra
+
+        kestra:
+          repository:
+            type: postgres
+
+          queue:
+            type: postgres
+
+          storage:
+            type: local
+
+            local:
+              basePath: "/app/storage"
+
+    volumes:
+      - ./flows:/app/flows
+      - ./scripts:/app/scripts
+      - ./data:/app/data
+      - kestra_storage:/app/storage
+
+volumes:
+  postgres_data:
+  kestra_storage:

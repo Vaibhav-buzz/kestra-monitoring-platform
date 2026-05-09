@@ -1,0 +1,40 @@
+id: website_monitor
+namespace: dev.monitoring
+
+description: Monitor websites every 5 minutes
+
+triggers:
+  - id: every_5_minutes
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "*/5 * * * *"
+
+variables:
+  websites:
+    - https://google.com
+    - https://github.com
+    - https://kestra.io
+    - https://amazon.com
+
+tasks:
+
+  - id: monitor_sites
+    type: io.kestra.plugin.core.flow.ForEach
+
+    values: "{{ vars.websites }}"
+
+    tasks:
+
+      - id: check_website
+        type: io.kestra.plugin.core.http.Request
+
+        uri: "{{ taskrun.value }}"
+
+        method: GET
+
+      - id: log_result
+        type: io.kestra.plugin.core.log.Log
+
+        message: |
+          Website: {{ taskrun.value }}
+          Status: {{ outputs.check_website.code }}
+          Response Time: {{ outputs.check_website.duration }}
